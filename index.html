@@ -1,32 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Autologin NetLevel</title>
-    <link rel="apple-touch-icon" href="icon.png">
-    <style>
-        body { margin: 0; background: #f3f3f3; font-family: sans-serif; }
-        #loading { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.2em; }
-        iframe { width: 100vw; height: 100vh; border: none; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <!-- Esto habilita modo "app" en iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Autologin NetLevel</title>
+  <!-- Icono que aparecerá en la pantalla de inicio; súbelo junto a este index.html -->
+  <link rel="apple-touch-icon" href="icon.png">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: sans-serif;
+      background: #f3f3f3;
+    }
+    p { font-size: 1.1em; }
+  </style>
 </head>
-<body>
-    <div id="loading">Entrando a tu cuenta...</div>
-    <iframe id="autologin" src="http://netlevel.online/reseller/login"></iframe>
-
-    <script>
-        const iframe = document.getElementById('autologin');
-        iframe.onload = () => {
-            const script = `
-                document.querySelector('[name="email"]').value = "Ronny";
-                document.querySelector('[name="password"]').value = "NicolasMR";
-                document.querySelector('[name="remember"]').checked = true;
-                document.querySelector('form').submit();
-            `;
-            iframe.contentWindow.eval(script);
-            document.getElementById("loading").style.display = "none";
-        };
-    </script>
+<body onload="document.forms[0].submit()">
+  <form action="http://netlevel.online/reseller/login" method="post">
+    <!-- Tus credenciales: -->
+    <input type="hidden" name="email"    value="Ronny">
+    <input type="hidden" name="password" value="NicolasMR">
+    <input type="hidden" name="remember" value="1">
+    <!-- El submit se dispara automáticamente, pero dejamos el botón (oculto) por si acaso -->
+    <input type="submit" style="display:none">
+  </form>
+  <p>Entrando a tu cuenta…</p>
 </body>
 </html>
