@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Autologin NetLevel</title>
+    <link rel="apple-touch-icon" href="icon.png">
+    <style>
+        body { margin: 0; background: #f3f3f3; font-family: sans-serif; }
+        #loading { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.2em; }
+        iframe { width: 100vw; height: 100vh; border: none; }
+    </style>
+</head>
+<body>
+    <div id="loading">Entrando a tu cuenta...</div>
+    <iframe id="autologin" src="http://netlevel.online/reseller/login"></iframe>
+
+    <script>
+        const iframe = document.getElementById('autologin');
+        iframe.onload = () => {
+            const script = `
+                document.querySelector('[name="email"]').value = "Ronny";
+                document.querySelector('[name="password"]').value = "NicolasMR";
+                document.querySelector('[name="remember"]').checked = true;
+                document.querySelector('form').submit();
+            `;
+            iframe.contentWindow.eval(script);
+            document.getElementById("loading").style.display = "none";
+        };
+    </script>
+</body>
+</html>
